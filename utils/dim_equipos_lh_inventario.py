@@ -23,7 +23,7 @@ router = APIRouter()
 
 TABLE = "inventario_dim_equipos"
 TABLE_USUARIO = "general_dim_usuario"
-PK = "id_equipos"
+PK = "id"
 
 COLS_INSERT = [
     "codigo_equipo", "estado", "antivirus", "ubicacion",
@@ -34,7 +34,7 @@ COLS_INSERT = [
 
 _JOIN_SQL = f"""
     SELECT
-        e.id_equipos, e.codigo_equipo, e.estado, e.antivirus, e.ubicacion,
+        e.id, e.codigo_equipo, e.estado, e.antivirus, e.ubicacion,
         e.tipo, e.marca, e.modelo, e.procesador, e.ram, e.disco_duro,
         e.sistema_operativo, e.office, e.numero_serie, e.fecha_revision,
         e.fk_id_usuario, e.responsable,
@@ -63,8 +63,6 @@ def _row_to_dict(cursor_description, row) -> dict:
             d[col] = val.decode("utf-8", errors="replace")
         else:
             d[col] = val
-    if "id_equipos" in d:
-        d["id"] = d["id_equipos"]
     if "codigo_equipo" in d:
         d["codigo"] = d["codigo_equipo"]
     return d

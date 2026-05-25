@@ -15,18 +15,18 @@ DIM_IMPRESORAS      = "inventario_dim_impresoras"
 FACT_MOVIMIENTOS    = "inventario_fact_movimientos"
 
 # --- PKs dimensiones ---
-PK_CATEGORIA       = "id_categoria"
-PK_DESTINO         = "id_destino"
-PK_PRODUCTO        = "id_producto"
-PK_TIPO_MOVIMIENTO = "id_tipo_movimiento"
+PK_CATEGORIA       = "id"
+PK_DESTINO         = "id"
+PK_PRODUCTO        = "id"
+PK_TIPO_MOVIMIENTO = "id"
 PK_USUARIO         = "id"          # UUID varchar(45)
-PK_EQUIPOS         = "id_equipos"
-PK_CELULARES       = "id_celulares"
-PK_TABLETS         = "id_tablets"
-PK_IMPRESORAS      = "id_impresoras"
+PK_EQUIPOS         = "id"
+PK_CELULARES       = "id"
+PK_TABLETS         = "id"
+PK_IMPRESORAS      = "id"
 
 # --- Hecho ---
-PK_FACT          = "id_movimiento"
+PK_FACT          = "id"
 FACT_COL_PRODUCTO = "producto_id"
 FACT_COL_TIPO     = "tipo_mov_id"
 FACT_COL_DESTINO  = "destino_id"

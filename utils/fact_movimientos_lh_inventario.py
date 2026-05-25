@@ -7,6 +7,9 @@ Validación SALIDA: lectura de vista vw_stock_actual (sin calcular stock en Pyth
 
 import logging
 from datetime import datetime
+from zoneinfo import ZoneInfo
+
+_TZ_SCL = ZoneInfo("America/Santiago")
 
 from fastapi import APIRouter, Body, Depends
 from fastapi.responses import JSONResponse
@@ -109,7 +112,7 @@ def _stock_desde_vista(conn, id_producto):
 def _row_movimiento_dict(row):
     fecha = row[2]
     if hasattr(fecha, "strftime"):
-        fecha = fecha.strftime("%Y-%m-%d")
+        fecha = fecha.strftime("%Y-%m-%d %H:%M:%S")
     elif fecha is not None:
         fecha = str(fecha)
     nombre_prod = _safe_value(row[7]) or ""
@@ -310,7 +313,7 @@ def crear(body: dict = Body(default={}), current_user: str = Depends(get_current
             id_usuario = str(id_usuario)
 
         if not fecha:
-            fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            fecha = datetime.now(_TZ_SCL).strftime("%Y-%m-%d %H:%M:%S")
 
         conn = get_db_connection()
         cursor = conn.cursor()

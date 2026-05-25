@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 TABLE = "inventario_dim_destino"
-PK = "id_destino"
+PK = "id"
 
 
 def _safe_value(val):

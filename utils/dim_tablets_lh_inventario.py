@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 TABLE = "inventario_dim_tablets"
-PK = "id_tablet"
+PK = "id"
 
 COLS_INSERT = [
     "codigo_tablet", "estado", "marca", "modelo",
@@ -28,7 +28,7 @@ COLS_INSERT = [
 
 _JOIN_SQL = f"""
     SELECT
-        t.id_tablet, t.codigo_tablet, t.estado, t.marca, t.modelo,
+        t.id, t.codigo_tablet, t.estado, t.marca, t.modelo,
         t.capacidad, t.fecha_entrega, t.responsable
     FROM {TABLE} t
 """
@@ -52,8 +52,6 @@ def _row_to_dict(cursor_description, row) -> dict:
             d[col] = val.decode("utf-8", errors="replace")
         else:
             d[col] = val
-    if "id_tablet" in d:
-        d["id"] = d["id_tablet"]
     if "codigo_tablet" in d:
         d["codigo"] = d["codigo_tablet"]
     return d
