@@ -53,12 +53,18 @@ def _safe(val):
     return val
 
 
+def _to_db_date(val):
+    if isinstance(val, str) and len(val) == 10 and val[2] == '-' and val[5] == '-':
+        return f"{val[6:]}-{val[3:5]}-{val[:2]}"
+    return val
+
+
 def _row_to_dict(cursor_description, row) -> dict:
     cols = [d[0] for d in cursor_description]
     d = {}
     for col, val in zip(cols, row):
         if hasattr(val, "strftime"):
-            d[col] = val.strftime("%Y-%m-%d")
+            d[col] = val.strftime("%d-%m-%Y")
         elif isinstance(val, bytes):
             d[col] = val.decode("utf-8", errors="replace")
         else:
@@ -155,7 +161,7 @@ def crear(body: dict = Body(default={}), current_user: str = Depends(get_current
                 continue
             val = body.get(col)
             if val is not None:
-                campos[col] = str(val).strip() if isinstance(val, str) else val
+                campos[col] = _to_db_date(str(val).strip()) if isinstance(val, str) else val
         if not current_user:
             cursor.close()
             conn.close()
@@ -203,7 +209,7 @@ def actualizar(id_equipo: int, body: dict = Body(default={}), current_user: str 
             if col in body:
                 updates.append(f"{col} = %s")
                 val = body[col]
-                params.append(str(val).strip() if isinstance(val, str) else val)
+                params.append(_to_db_date(str(val).strip()) if isinstance(val, str) else val)
         if not updates:
             cursor.close()
             conn.close()

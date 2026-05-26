@@ -80,7 +80,7 @@ def listar(current_user: str = Depends(get_current_user)):
             rows = cursor.fetchall()
             out = []
             for row in rows:
-                m = {k: (v.strftime("%Y-%m-%d") if hasattr(v, "strftime") else v) for k, v in row.items()}
+                m = {k: (v.strftime("%d-%m-%Y") if hasattr(v, "strftime") else v) for k, v in row.items()}
                 if not any(k.lower() == "nombre_categoria" for k in m):
                     m["nombre_categoria"] = ""
                 if not any(k.lower() == "nombre_producto" for k in m):
@@ -95,7 +95,7 @@ def listar(current_user: str = Depends(get_current_user)):
         out = []
         for row in rows:
             m = {
-                k: (_safe(v).strip() if isinstance(v, str) else (v.strftime("%Y-%m-%d") if hasattr(v, "strftime") else v))
+                k: (_safe(v).strip() if isinstance(v, str) else (v.strftime("%d-%m-%Y") if hasattr(v, "strftime") else v))
                 for k, v in row.items()
             }
             out.append(m)

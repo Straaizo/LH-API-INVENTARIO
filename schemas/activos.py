@@ -69,6 +69,7 @@ class CelularOut(BaseModel):
     imei: Optional[str] = Field(None, example="356789012345678")
     fecha_entrega: Optional[str] = Field(None, example="2025-03-01")
     responsable: Optional[str] = Field(None, example="Carlos Muñoz")
+    identificador: Optional[str] = Field(None, example="ITAHUE 29")
 
 
 class CelularCreate(BaseModel):
@@ -85,6 +86,7 @@ class CelularCreate(BaseModel):
     imei: Optional[str] = Field(None, example="356789012345678")
     fecha_entrega: Optional[str] = Field(None, example="2025-03-01")
     responsable: Optional[str] = Field(None, example="Carlos Muñoz")
+    identificador: Optional[str] = Field(None, example="ITAHUE 29")
 
 
 class CelularListResponse(BaseModel):
