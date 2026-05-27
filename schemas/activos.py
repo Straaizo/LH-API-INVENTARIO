@@ -59,7 +59,6 @@ class EquipoListResponse(BaseModel):
 
 class CelularOut(BaseModel):
     id: Optional[int] = Field(None, example=1)
-    id_celular: Optional[int] = Field(None, example=1)
     numero: Optional[str] = Field(None, example="+56912345678")
     estado: Optional[str] = Field(None, example="Activo")
     tipo_celular: Optional[str] = Field(None, example="Voz y Datos")
