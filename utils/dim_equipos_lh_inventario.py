@@ -29,7 +29,7 @@ COLS_INSERT = [
     "codigo_equipo", "estado", "antivirus", "ubicacion",
     "tipo", "marca", "modelo", "procesador", "ram", "disco_duro",
     "sistema_operativo", "office", "numero_serie", "fecha_revision",
-    "fk_id_usuario", "responsable",
+    "fk_id_usuario", "responsable", "comentario",
 ]
 
 _JOIN_SQL = f"""
@@ -37,7 +37,7 @@ _JOIN_SQL = f"""
         e.id, e.codigo_equipo, e.estado, e.antivirus, e.ubicacion,
         e.tipo, e.marca, e.modelo, e.procesador, e.ram, e.disco_duro,
         e.sistema_operativo, e.office, e.numero_serie, e.fecha_revision,
-        e.fk_id_usuario, e.responsable,
+        e.fk_id_usuario, e.responsable, e.comentario,
         COALESCE(NULLIF(TRIM(u.nombre), ''), u.usuario, '') AS usuario_nombre,
         COALESCE(u.correo, '') AS usuario_correo
     FROM {TABLE} e

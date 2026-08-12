@@ -27,6 +27,7 @@ class EquipoOut(BaseModel):
     responsable: Optional[str] = Field(None, example="Ana López")
     usuario_nombre: Optional[str] = Field(None, example="Ana López")
     usuario_correo: Optional[str] = Field(None, example="alopez@lahornilla.cl")
+    comentario: Optional[str] = Field(None, example="Pantalla con rayadura leve")
 
 
 class EquipoCreate(BaseModel):
@@ -49,6 +50,7 @@ class EquipoCreate(BaseModel):
     antivirus: Optional[str] = Field(None, example="Windows Defender")
     fecha_revision: Optional[str] = Field(None, example="2026-01-15")
     responsable: Optional[str] = Field(None, example="Ana López")
+    comentario: Optional[str] = Field(None, example="Pantalla con rayadura leve")
 
 
 class EquipoListResponse(BaseModel):
@@ -68,7 +70,7 @@ class CelularOut(BaseModel):
     imei: Optional[str] = Field(None, example="356789012345678")
     fecha_entrega: Optional[str] = Field(None, example="2025-03-01")
     responsable: Optional[str] = Field(None, example="Carlos Muñoz")
-    identificador: Optional[str] = Field(None, example="ITAHUE 29")
+    comentario: Optional[str] = Field(None, example="Pantalla con rayadura leve")
 
 
 class CelularCreate(BaseModel):
@@ -85,7 +87,7 @@ class CelularCreate(BaseModel):
     imei: Optional[str] = Field(None, example="356789012345678")
     fecha_entrega: Optional[str] = Field(None, example="2025-03-01")
     responsable: Optional[str] = Field(None, example="Carlos Muñoz")
-    identificador: Optional[str] = Field(None, example="ITAHUE 29")
+    comentario: Optional[str] = Field(None, example="Pantalla con rayadura leve")
 
 
 class CelularListResponse(BaseModel):

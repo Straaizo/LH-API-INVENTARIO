@@ -23,13 +23,13 @@ PK = "id"
 
 COLS_INSERT = [
     "numero", "estado", "tipo_celular", "compania",
-    "marca", "modelo", "imei", "fecha_entrega", "responsable", "identificador",
+    "marca", "modelo", "imei", "fecha_entrega", "responsable", "comentario",
 ]
 
 _JOIN_SQL = f"""
     SELECT
         c.id, c.numero, c.estado, c.tipo_celular, c.compania,
-        c.marca, c.modelo, c.imei, c.fecha_entrega, c.responsable, c.identificador
+        c.marca, c.modelo, c.imei, c.fecha_entrega, c.responsable, c.comentario
     FROM {TABLE} c
 """
 

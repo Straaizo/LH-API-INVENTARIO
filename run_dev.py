@@ -19,6 +19,10 @@ import threading
 import webbrowser
 from pathlib import Path
 
+if sys.stdout.encoding.lower() != "utf-8":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 # ── Directorio raíz del proyecto ──────────────────────────────────────────────
 ROOT = Path(__file__).parent
 
