@@ -196,27 +196,6 @@ def actualizar(id_tablet: int, body: dict = Body(default={}), current_user: str 
         return server_error(e)
 
 
-@router.delete(
-    "/{id_tablet}",
-    summary="Eliminar tablet",
-    description="Elimina permanentemente una tablet del inventario.",
-    responses={
-        **RESP_401,
-        **RESP_404,
-        **RESP_500,
-    },
-)
-def eliminar(id_tablet: int, current_user: str = Depends(get_current_user)):
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute(f"DELETE FROM {TABLE} WHERE {PK} = %s", (id_tablet,))
-        conn.commit()
-        n = cursor.rowcount
-        cursor.close()
-        conn.close()
-        if n == 0:
-            return JSONResponse(status_code=404, content={"error": "Tablet no encontrada"})
-        return {"message": "Tablet eliminada"}
-    except Exception as e:
-        return server_error(e)
+
+# No existe endpoint de eliminación: el ciclo de vida de una tablet se maneja
+# cambiando su `estado` (De baja, Inactivo, etc.), nunca borrando el registro.

@@ -195,27 +195,6 @@ def actualizar(id_celular: int, body: dict = Body(default={}), current_user: str
         return server_error(e)
 
 
-@router.delete(
-    "/{id_celular}",
-    summary="Eliminar línea móvil",
-    description="Elimina permanentemente una línea móvil del inventario.",
-    responses={
-        **RESP_401,
-        **RESP_404,
-        **RESP_500,
-    },
-)
-def eliminar(id_celular: int, current_user: str = Depends(get_current_user)):
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute(f"DELETE FROM {TABLE} WHERE {PK} = %s", (id_celular,))
-        conn.commit()
-        n = cursor.rowcount
-        cursor.close()
-        conn.close()
-        if n == 0:
-            return JSONResponse(status_code=404, content={"error": "Celular no encontrado"})
-        return {"message": "Celular eliminado"}
-    except Exception as e:
-        return server_error(e)
+
+# No existe endpoint de eliminación: el ciclo de vida de una línea se maneja
+# cambiando su `estado` (De baja, Inactivo, etc.), nunca borrando el registro.

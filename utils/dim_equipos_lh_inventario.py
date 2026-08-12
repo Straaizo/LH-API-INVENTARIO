@@ -233,27 +233,6 @@ def actualizar(id_equipo: int, body: dict = Body(default={}), current_user: str 
         return server_error(e)
 
 
-@router.delete(
-    "/{id_equipo}",
-    summary="Eliminar equipo",
-    description="Elimina permanentemente un equipo del inventario.",
-    responses={
-        **RESP_401,
-        **RESP_404,
-        **RESP_500,
-    },
-)
-def eliminar(id_equipo: int, current_user: str = Depends(get_current_user)):
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute(f"DELETE FROM {TABLE} WHERE {PK} = %s", (id_equipo,))
-        conn.commit()
-        n = cursor.rowcount
-        cursor.close()
-        conn.close()
-        if n == 0:
-            return JSONResponse(status_code=404, content={"error": "Equipo no encontrado"})
-        return {"message": "Equipo eliminado"}
-    except Exception as e:
-        return server_error(e)
+
+# No existe endpoint de eliminación: el ciclo de vida de un equipo se maneja
+# cambiando su `estado` (De baja, Robado, Inactivo, etc.), nunca borrando el registro.

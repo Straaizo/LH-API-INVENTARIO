@@ -196,27 +196,6 @@ def actualizar(id_impresora: int, body: dict = Body(default={}), current_user: s
         return server_error(e)
 
 
-@router.delete(
-    "/{id_impresora}",
-    summary="Eliminar impresora",
-    description="Elimina permanentemente una impresora del inventario.",
-    responses={
-        **RESP_401,
-        **RESP_404,
-        **RESP_500,
-    },
-)
-def eliminar(id_impresora: int, current_user: str = Depends(get_current_user)):
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute(f"DELETE FROM {TABLE} WHERE {PK} = %s", (id_impresora,))
-        conn.commit()
-        n = cursor.rowcount
-        cursor.close()
-        conn.close()
-        if n == 0:
-            return JSONResponse(status_code=404, content={"error": "Impresora no encontrada"})
-        return {"message": "Impresora eliminada"}
-    except Exception as e:
-        return server_error(e)
+
+# No existe endpoint de eliminación: el ciclo de vida de una impresora se maneja
+# cambiando su `estado` (De baja, Inactivo, etc.), nunca borrando el registro.
